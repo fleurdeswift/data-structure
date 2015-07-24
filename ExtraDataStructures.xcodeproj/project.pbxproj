@@ -10,6 +10,7 @@
 		7B6E036A1B61FCF000412FA7 /* AtomicCompareAndSwap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6E03691B61FCF000412FA7 /* AtomicCompareAndSwap.swift */; };
 		7B6E036C1B61FEF200412FA7 /* AtomicAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6E036B1B61FEF200412FA7 /* AtomicAdd.swift */; };
 		7B6E036E1B61FF5700412FA7 /* AtomicMax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6E036D1B61FF5700412FA7 /* AtomicMax.swift */; };
+		7B6E03701B62110B00412FA7 /* Reference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6E036F1B62110B00412FA7 /* Reference.swift */; };
 		7BB14C131B6080A600FDD462 /* ExtraDataStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB14C121B6080A600FDD462 /* ExtraDataStructures.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BB14C1A1B6080A600FDD462 /* ExtraDataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB14C0F1B6080A600FDD462 /* ExtraDataStructures.framework */; };
 		7BB14C1F1B6080A600FDD462 /* SegmentedArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB14C1E1B6080A600FDD462 /* SegmentedArrayTests.swift */; };
@@ -38,6 +39,7 @@
 		7B6E03691B61FCF000412FA7 /* AtomicCompareAndSwap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomicCompareAndSwap.swift; sourceTree = "<group>"; };
 		7B6E036B1B61FEF200412FA7 /* AtomicAdd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomicAdd.swift; sourceTree = "<group>"; };
 		7B6E036D1B61FF5700412FA7 /* AtomicMax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomicMax.swift; sourceTree = "<group>"; };
+		7B6E036F1B62110B00412FA7 /* Reference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reference.swift; sourceTree = "<group>"; };
 		7BB14C0F1B6080A600FDD462 /* ExtraDataStructures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ExtraDataStructures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BB14C121B6080A600FDD462 /* ExtraDataStructures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtraDataStructures.h; sourceTree = "<group>"; };
 		7BB14C141B6080A600FDD462 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				7BB14C121B6080A600FDD462 /* ExtraDataStructures.h */,
 				7BB14C141B6080A600FDD462 /* Info.plist */,
 				7BB14C331B60978900FDD462 /* NestedSequenceGenerator.swift */,
+				7B6E036F1B62110B00412FA7 /* Reference.swift */,
 				7BB14C311B60967100FDD462 /* SegmentedArray.swift */,
 				7BB14C2F1B60958200FDD462 /* SegmentedArrayEntry.swift */,
 			);
@@ -239,6 +242,7 @@
 				7B6E036A1B61FCF000412FA7 /* AtomicCompareAndSwap.swift in Sources */,
 				7B6E036E1B61FF5700412FA7 /* AtomicMax.swift in Sources */,
 				7BB14C341B60978900FDD462 /* NestedSequenceGenerator.swift in Sources */,
+				7B6E03701B62110B00412FA7 /* Reference.swift in Sources */,
 				7BB14C321B60967100FDD462 /* SegmentedArray.swift in Sources */,
 				7BB14C301B60958200FDD462 /* SegmentedArrayEntry.swift in Sources */,
 			);
