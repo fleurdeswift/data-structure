@@ -122,3 +122,80 @@ public struct ReferenceArray<T: AnyObject> : SequenceType {
         return entries.underestimateCount();
     }
 }
+
+public struct ReferenceDictionary<Key: Hashable, T: AnyObject> {
+    public typealias Element = T;
+
+    private var entries = [Key: BaseReference<T>]();
+
+    public init() {
+    }
+    
+    public subscript(key: Key) -> Element? {
+        get {
+            let ref = entries[key];
+
+            if let ref = ref {
+                return ref.value;
+            }
+            
+            return nil;
+        }
+    
+        set {
+            if let value = newValue {
+                entries[key] = StrongReference<T>(value);
+            }
+            else {
+                entries.removeValueForKey(key);
+            }
+        }
+    }
+    
+    public mutating func set(key: Key, value: T, strong: Bool) {
+        if strong {
+            entries[key] = StrongReference(value);
+        }
+        else {
+            entries[key] = WeakReference(value);
+        }
+    }
+    
+    public mutating func removeAll() {
+        entries.removeAll();
+    }
+}
+
+public struct ReferenceWeakDictionary<Key: Hashable, T: AnyObject> {
+    public typealias Element = T;
+
+    private var entries = [Key: WeakReference<T>]();
+
+    public init() {
+    }
+    
+    public subscript(key: Key) -> Element? {
+        get {
+            let ref = entries[key];
+
+            if let ref = ref {
+                return ref.value;
+            }
+            
+            return nil;
+        }
+    
+        set {
+            if let value = newValue {
+                entries[key] = WeakReference<T>(value);
+            }
+            else {
+                entries.removeValueForKey(key);
+            }
+        }
+    }
+    
+    public mutating func removeAll() {
+        entries.removeAll();
+    }
+}
