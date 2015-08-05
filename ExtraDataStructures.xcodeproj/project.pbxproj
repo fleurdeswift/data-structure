@@ -13,6 +13,7 @@
 		7B6E036C1B61FEF200412FA7 /* AtomicAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6E036B1B61FEF200412FA7 /* AtomicAdd.swift */; };
 		7B6E036E1B61FF5700412FA7 /* AtomicMax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6E036D1B61FF5700412FA7 /* AtomicMax.swift */; };
 		7B6E03701B62110B00412FA7 /* Reference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6E036F1B62110B00412FA7 /* Reference.swift */; };
+		7B6F4CCE1B6F38FA00286C9A /* Number+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6F4CCD1B6F38FA00286C9A /* Number+Hex.swift */; };
 		7BB14C131B6080A600FDD462 /* ExtraDataStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB14C121B6080A600FDD462 /* ExtraDataStructures.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BB14C1A1B6080A600FDD462 /* ExtraDataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB14C0F1B6080A600FDD462 /* ExtraDataStructures.framework */; };
 		7BB14C1F1B6080A600FDD462 /* SegmentedArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB14C1E1B6080A600FDD462 /* SegmentedArrayTests.swift */; };
@@ -44,6 +45,7 @@
 		7B6E036B1B61FEF200412FA7 /* AtomicAdd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomicAdd.swift; sourceTree = "<group>"; };
 		7B6E036D1B61FF5700412FA7 /* AtomicMax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomicMax.swift; sourceTree = "<group>"; };
 		7B6E036F1B62110B00412FA7 /* Reference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reference.swift; sourceTree = "<group>"; };
+		7B6F4CCD1B6F38FA00286C9A /* Number+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Number+Hex.swift"; sourceTree = "<group>"; };
 		7BB14C0F1B6080A600FDD462 /* ExtraDataStructures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ExtraDataStructures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BB14C121B6080A600FDD462 /* ExtraDataStructures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtraDataStructures.h; sourceTree = "<group>"; };
 		7BB14C141B6080A600FDD462 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				7BB14C121B6080A600FDD462 /* ExtraDataStructures.h */,
 				7BB14C141B6080A600FDD462 /* Info.plist */,
 				7BB14C331B60978900FDD462 /* NestedSequenceGenerator.swift */,
+				7B6F4CCD1B6F38FA00286C9A /* Number+Hex.swift */,
 				7B6E036F1B62110B00412FA7 /* Reference.swift */,
 				7B14B4501B6D1761007B8840 /* ReferenceCache.swift */,
 				7BB14C311B60967100FDD462 /* SegmentedArray.swift */,
@@ -239,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B6F4CCE1B6F38FA00286C9A /* Number+Hex.swift in Sources */,
 				7BB14C2E1B6081F900FDD462 /* AggregateArray.swift in Sources */,
 				7BB14C381B60AC2000FDD462 /* AggregateSum.swift in Sources */,
 				7BB14C2C1B60818A00FDD462 /* AggregateType.swift in Sources */,
