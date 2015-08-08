@@ -26,6 +26,7 @@
 		7BB14C361B60A3E600FDD462 /* AggregateArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB14C351B60A3E600FDD462 /* AggregateArrayTests.swift */; };
 		7BB14C381B60AC2000FDD462 /* AggregateSum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB14C371B60AC2000FDD462 /* AggregateSum.swift */; };
 		7BB14C3A1B60BE8D00FDD462 /* ArithmeticProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB14C391B60BE8D00FDD462 /* ArithmeticProtocols.swift */; };
+		7BB938CF1B73285E000EDCCF /* Array+Reference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB938CE1B73285E000EDCCF /* Array+Reference.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		7BB14C351B60A3E600FDD462 /* AggregateArrayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AggregateArrayTests.swift; sourceTree = "<group>"; };
 		7BB14C371B60AC2000FDD462 /* AggregateSum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AggregateSum.swift; sourceTree = "<group>"; };
 		7BB14C391B60BE8D00FDD462 /* ArithmeticProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArithmeticProtocols.swift; sourceTree = "<group>"; };
+		7BB938CE1B73285E000EDCCF /* Array+Reference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Reference.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				7BB14C2B1B60818A00FDD462 /* AggregateType.swift */,
 				7BB14C291B60814900FDD462 /* AnyContiguousArray.swift */,
 				7BB14C391B60BE8D00FDD462 /* ArithmeticProtocols.swift */,
+				7BB938CE1B73285E000EDCCF /* Array+Reference.swift */,
 				7B6E036B1B61FEF200412FA7 /* AtomicAdd.swift */,
 				7B6E03691B61FCF000412FA7 /* AtomicCompareAndSwap.swift */,
 				7B6E036D1B61FF5700412FA7 /* AtomicMax.swift */,
@@ -251,6 +254,7 @@
 				7B6E036C1B61FEF200412FA7 /* AtomicAdd.swift in Sources */,
 				7B6E036A1B61FCF000412FA7 /* AtomicCompareAndSwap.swift in Sources */,
 				7B6E036E1B61FF5700412FA7 /* AtomicMax.swift in Sources */,
+				7BB938CF1B73285E000EDCCF /* Array+Reference.swift in Sources */,
 				7BB14C341B60978900FDD462 /* NestedSequenceGenerator.swift in Sources */,
 				7B6E03701B62110B00412FA7 /* Reference.swift in Sources */,
 				7B14B4511B6D1761007B8840 /* ReferenceCache.swift in Sources */,
