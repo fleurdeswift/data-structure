@@ -5,7 +5,7 @@
 //  Copyright © 2015 Fleur de Swift. All rights reserved.
 //
 
-public class AnyContiguousArray<Element> : SequenceType, CollectionType, MutableCollectionType, Sliceable, MutableSliceable, ExtensibleCollectionType, RangeReplaceableCollectionType {
+public class AnyContiguousArray<Element> : SequenceType, CollectionType, MutableSliceable, RangeReplaceableCollectionType {
     public typealias Generator = Swift.ContiguousArray.Generator;
     public typealias Index     = Swift.ContiguousArray.Index;
     public typealias SubSlice  = Swift.ContiguousArray.SubSlice;

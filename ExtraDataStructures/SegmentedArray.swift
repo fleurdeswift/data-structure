@@ -5,7 +5,7 @@
 //  Copyright © 2015 Fleur de Swift. All rights reserved.
 //
 
-public class SegmentedArray<Element, Aggregate: AggregateType where Aggregate.Element == Element> : SequenceType, CollectionType, MutableCollectionType, Sliceable, MutableSliceable, ExtensibleCollectionType, RangeReplaceableCollectionType {
+public class SegmentedArray<Element, Aggregate: AggregateType where Aggregate.Element == Element> : SequenceType, CollectionType, MutableCollectionType, MutableSliceable, RangeReplaceableCollectionType {
     public typealias Segment   = AggregateArray<Element, Aggregate>;
     public typealias Generator = NestedSequenceGenerator<Element, Segment, IndexingGenerator<[Segment]>>;
     public typealias Index     = Int;
