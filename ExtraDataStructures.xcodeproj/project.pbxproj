@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7B14B44F1B6D12C0007B8840 /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B14B44E1B6D12C0007B8840 /* Dispatch.swift */; };
 		7B14B4511B6D1761007B8840 /* ReferenceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B14B4501B6D1761007B8840 /* ReferenceCache.swift */; };
+		7B18D1D51B81A454000048C2 /* TimeRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B18D1D41B81A454000048C2 /* TimeRange.swift */; };
 		7B6E036A1B61FCF000412FA7 /* AtomicCompareAndSwap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6E03691B61FCF000412FA7 /* AtomicCompareAndSwap.swift */; };
 		7B6E036C1B61FEF200412FA7 /* AtomicAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6E036B1B61FEF200412FA7 /* AtomicAdd.swift */; };
 		7B6E036E1B61FF5700412FA7 /* AtomicMax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6E036D1B61FF5700412FA7 /* AtomicMax.swift */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		7B14B44E1B6D12C0007B8840 /* Dispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
 		7B14B4501B6D1761007B8840 /* ReferenceCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferenceCache.swift; sourceTree = "<group>"; };
+		7B18D1D41B81A454000048C2 /* TimeRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeRange.swift; sourceTree = "<group>"; };
 		7B6E03691B61FCF000412FA7 /* AtomicCompareAndSwap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomicCompareAndSwap.swift; sourceTree = "<group>"; };
 		7B6E036B1B61FEF200412FA7 /* AtomicAdd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomicAdd.swift; sourceTree = "<group>"; };
 		7B6E036D1B61FF5700412FA7 /* AtomicMax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomicMax.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				7B14B4501B6D1761007B8840 /* ReferenceCache.swift */,
 				7BB14C311B60967100FDD462 /* SegmentedArray.swift */,
 				7BB14C2F1B60958200FDD462 /* SegmentedArrayEntry.swift */,
+				7B18D1D41B81A454000048C2 /* TimeRange.swift */,
 			);
 			path = ExtraDataStructures;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				7BB14C3A1B60BE8D00FDD462 /* ArithmeticProtocols.swift in Sources */,
 				7B6E036C1B61FEF200412FA7 /* AtomicAdd.swift in Sources */,
 				7B6E036A1B61FCF000412FA7 /* AtomicCompareAndSwap.swift in Sources */,
+				7B18D1D51B81A454000048C2 /* TimeRange.swift in Sources */,
 				7B6E036E1B61FF5700412FA7 /* AtomicMax.swift in Sources */,
 				7BB938CF1B73285E000EDCCF /* Array+Reference.swift in Sources */,
 				7BB14C341B60978900FDD462 /* NestedSequenceGenerator.swift in Sources */,
