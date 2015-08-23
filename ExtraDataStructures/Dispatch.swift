@@ -7,15 +7,6 @@
 
 import Dispatch
 
-//
-//  Dispatch.swift
-//  SQL
-//
-//  Copyright © 2015 Fleur de Swift. All rights reserved.
-//
-
-import Dispatch
-
 // MARK: Sync
 public func dispatch_sync(queue: dispatch_queue_t, block: () throws -> Void) throws -> Void {
     var throwed: ErrorType?;
@@ -172,3 +163,14 @@ public func dispatch_barrier_sync<T>(queue: dispatch_queue_t, block: () -> T?) -
     return result;
 }
 
+public func dispatch_sync_main(block: dispatch_block_t) -> Void {
+    dispatch_sync(dispatch_get_main_queue(), block);
+}
+
+public func dispatch_async_main(block: dispatch_block_t) -> Void {
+    dispatch_async(dispatch_get_main_queue(), block);
+}
+
+public func dispatch_async_global(block: dispatch_block_t) -> Void {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
+}
