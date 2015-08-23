@@ -27,4 +27,16 @@ public extension NSTimeInterval {
             }
         }
     }
+
+    public static func equalsWithAccuracy(t1: NSTimeInterval?, _ t2: NSTimeInterval?, accuracy: NSTimeInterval) -> Bool {
+        if t1 == nil && t2 == nil {
+            return true;
+        }
+
+        if t1 == nil || t2 == nil {
+            return false;
+        }
+
+        return abs(t1! - t2!) < accuracy;
+    }
 }
