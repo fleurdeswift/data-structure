@@ -15,6 +15,7 @@
 		7B6E036E1B61FF5700412FA7 /* AtomicMax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6E036D1B61FF5700412FA7 /* AtomicMax.swift */; };
 		7B6E03701B62110B00412FA7 /* Reference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6E036F1B62110B00412FA7 /* Reference.swift */; };
 		7B6F4CCE1B6F38FA00286C9A /* Number+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6F4CCD1B6F38FA00286C9A /* Number+Hex.swift */; };
+		7B73EB9B1B8ABD42008C1C8E /* String+CharacterAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B73EB9A1B8ABD42008C1C8E /* String+CharacterAccess.swift */; };
 		7BA4456C1B817EDA002FD761 /* Array+Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA4456B1B817EDA002FD761 /* Array+Move.swift */; };
 		7BA4456E1B817F14002FD761 /* NSTimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA4456D1B817F14002FD761 /* NSTimeInterval.swift */; };
 		7BB14C131B6080A600FDD462 /* ExtraDataStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB14C121B6080A600FDD462 /* ExtraDataStructures.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -51,6 +52,7 @@
 		7B6E036D1B61FF5700412FA7 /* AtomicMax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomicMax.swift; sourceTree = "<group>"; };
 		7B6E036F1B62110B00412FA7 /* Reference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reference.swift; sourceTree = "<group>"; };
 		7B6F4CCD1B6F38FA00286C9A /* Number+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Number+Hex.swift"; sourceTree = "<group>"; };
+		7B73EB9A1B8ABD42008C1C8E /* String+CharacterAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+CharacterAccess.swift"; sourceTree = "<group>"; };
 		7BA4456B1B817EDA002FD761 /* Array+Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Move.swift"; sourceTree = "<group>"; };
 		7BA4456D1B817F14002FD761 /* NSTimeInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTimeInterval.swift; sourceTree = "<group>"; };
 		7BB14C0F1B6080A600FDD462 /* ExtraDataStructures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ExtraDataStructures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,6 +133,7 @@
 				7B14B4501B6D1761007B8840 /* ReferenceCache.swift */,
 				7BB14C311B60967100FDD462 /* SegmentedArray.swift */,
 				7BB14C2F1B60958200FDD462 /* SegmentedArrayEntry.swift */,
+				7B73EB9A1B8ABD42008C1C8E /* String+CharacterAccess.swift */,
 				7B18D1D41B81A454000048C2 /* TimeRange.swift */,
 			);
 			path = ExtraDataStructures;
@@ -266,6 +269,7 @@
 				7B18D1D51B81A454000048C2 /* TimeRange.swift in Sources */,
 				7B6E036E1B61FF5700412FA7 /* AtomicMax.swift in Sources */,
 				7BB938CF1B73285E000EDCCF /* Array+Reference.swift in Sources */,
+				7B73EB9B1B8ABD42008C1C8E /* String+CharacterAccess.swift in Sources */,
 				7BB14C341B60978900FDD462 /* NestedSequenceGenerator.swift in Sources */,
 				7B6E03701B62110B00412FA7 /* Reference.swift in Sources */,
 				7B14B4511B6D1761007B8840 /* ReferenceCache.swift in Sources */,

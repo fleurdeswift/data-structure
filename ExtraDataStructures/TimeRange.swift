@@ -60,3 +60,12 @@ public struct TimeRange {
         }
     }
 }
+
+public func + (range: TimeRange, delta: NSTimeInterval) -> TimeRange {
+    return TimeRange(start: range.start + delta, length: range.length);
+}
+
+public func - (range: TimeRange, delta: NSTimeInterval) -> TimeRange {
+    return TimeRange(start: range.start - delta, length: range.length);
+}
+
