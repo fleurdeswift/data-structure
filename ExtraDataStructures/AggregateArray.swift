@@ -50,7 +50,7 @@ public class AggregateArray<Element, Aggregate: AggregateType where Aggregate.El
         
         let right  = index..<count;
 
-        s.elements.splice(self.elements[right], atIndex: 0)
+        s.elements.insertContentsOf(self.elements[right], at: 0)
         s.aggregate.addElements(0..<right.count, inArray: self);
         removeRange(right);
         return s;
@@ -75,16 +75,16 @@ public class AggregateArray<Element, Aggregate: AggregateType where Aggregate.El
         aggregate.addElement(elements.count - 1, inArray: self);
     }
 
-    public override func extend<S : SequenceType where S.Generator.Element == Generator.Element>(newElements: S) {
+    public override func appendContentsOf<S : SequenceType where S.Generator.Element == Generator.Element>(newElements: S) {
         let start = elements.count;
-        elements.extend(newElements);
+        elements.appendContentsOf(newElements);
         aggregate.addElements(start..<elements.count, inArray: self);
     }
     
     // MARK: RangeReplaceableCollectionType
-    public  override func splice<S : CollectionType where S.Generator.Element == Generator.Element>(newElements: S, atIndex i: Int) {
+    public  override func insertContentsOf<S : CollectionType where S.Generator.Element == Generator.Element>(newElements: S, at i: Int) {
         let count = elements.count;
-        elements.splice(newElements, atIndex: i);
+        elements.insertContentsOf(newElements, at: i);
         let newCount = elements.count;
         aggregate.addElements(i..<(i + newCount - count), inArray: self);
     }
@@ -106,7 +106,7 @@ public class AggregateArray<Element, Aggregate: AggregateType where Aggregate.El
 
     public override func replaceRange<C : CollectionType where C.Generator.Element == Generator.Element>(subRange: Range<Int>, with newElements: C) {
         removeRange(subRange);
-        splice(newElements, atIndex: subRange.startIndex);
+        insertContentsOf(newElements, at: subRange.startIndex);
     }
 
     public override func removeAll(keepCapacity keepCapacity: Bool) {

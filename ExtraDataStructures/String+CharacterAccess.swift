@@ -9,7 +9,7 @@ import Foundation
 
 public extension String {
     public subscript (i: Int) -> Character {
-        return self[advance(self.startIndex, i)]
+        return self[self.startIndex.advancedBy(i)]
     }
 
     public subscript (i: Int) -> String {
@@ -17,10 +17,10 @@ public extension String {
     }
 
     public subscript (r: Range<Int>) -> String {
-        return substringWithRange(Range(start: advance(startIndex, r.startIndex), end: advance(startIndex, r.endIndex)))
+        return substringWithRange(Range(start: startIndex.advancedBy(r.startIndex), end: startIndex.advancedBy(r.endIndex)))
     }
 
     public func suffix(start start: Int) -> String {
-        return substringWithRange(Range(start: advance(startIndex, start), end: endIndex))
+        return substringWithRange(Range(start: startIndex.advancedBy(start), end: endIndex))
     }
 }

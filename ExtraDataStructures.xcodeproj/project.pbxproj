@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7995A6D21B8C254300BCE8EE /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7995A6D11B8C254300BCE8EE /* Task.swift */; settings = {ASSET_TAGS = (); }; };
 		7B14B44F1B6D12C0007B8840 /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B14B44E1B6D12C0007B8840 /* Dispatch.swift */; };
 		7B14B4511B6D1761007B8840 /* ReferenceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B14B4501B6D1761007B8840 /* ReferenceCache.swift */; };
 		7B18D1D51B81A454000048C2 /* TimeRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B18D1D41B81A454000048C2 /* TimeRange.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7995A6D11B8C254300BCE8EE /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		7B14B44E1B6D12C0007B8840 /* Dispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
 		7B14B4501B6D1761007B8840 /* ReferenceCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferenceCache.swift; sourceTree = "<group>"; };
 		7B18D1D41B81A454000048C2 /* TimeRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeRange.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				7BB14C311B60967100FDD462 /* SegmentedArray.swift */,
 				7BB14C2F1B60958200FDD462 /* SegmentedArrayEntry.swift */,
 				7B73EB9A1B8ABD42008C1C8E /* String+CharacterAccess.swift */,
+				7995A6D11B8C254300BCE8EE /* Task.swift */,
 				7B18D1D41B81A454000048C2 /* TimeRange.swift */,
 			);
 			path = ExtraDataStructures;
@@ -276,6 +279,7 @@
 				7BB14C321B60967100FDD462 /* SegmentedArray.swift in Sources */,
 				7BB14C301B60958200FDD462 /* SegmentedArrayEntry.swift in Sources */,
 				7BA4456C1B817EDA002FD761 /* Array+Move.swift in Sources */,
+				7995A6D21B8C254300BCE8EE /* Task.swift in Sources */,
 				7B14B44F1B6D12C0007B8840 /* Dispatch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

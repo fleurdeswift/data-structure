@@ -42,7 +42,7 @@ class AggregateArrayTests: XCTestCase {
     func testExtend() {
         let b = AggregateArray<String, StringAggregate>(["1", "2", "3", "4", "5", "6", "7", "8"]);
         
-        b.extend(["9", "10", "11", "12"]);
+        b.appendContentsOf(["9", "10", "11", "12"]);
         XCTAssertEqual(b.count, 12);
         XCTAssertEqual(b.aggregate.characterCount, 15);
     }

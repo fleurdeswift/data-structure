@@ -225,10 +225,10 @@ public class SegmentedArray<Element, Aggregate: AggregateType where Aggregate.El
             segmentsForRange(bounds) {
                 (range: Range<Int>, elements: AnyContiguousArray<Element>, aggregate: Aggregate) in
                     if range.count == elements.count {
-                        b.extend(elements.elements);
+                        b.appendContentsOf(elements.elements);
                     }
                     else {
-                        b.extend(elements.elements[range]);
+                        b.appendContentsOf(elements.elements[range]);
                     }
             }
             
@@ -397,7 +397,7 @@ public class SegmentedArray<Element, Aggregate: AggregateType where Aggregate.El
                         desc += ", ";
                     }
                     
-                    print(element, &desc, appendNewline: false);
+                    print(element, toStream: &desc);
                     index++;
                 }
             }

@@ -6,9 +6,9 @@
 //
 
 public class AnyContiguousArray<Element> : SequenceType, CollectionType, MutableSliceable, RangeReplaceableCollectionType {
-    public typealias Generator = Swift.ContiguousArray.Generator;
-    public typealias Index     = Swift.ContiguousArray.Index;
-    public typealias SubSlice  = Swift.ContiguousArray.SubSlice;
+    public typealias Generator   = Swift.ContiguousArray.Generator;
+    public typealias Index       = Swift.ContiguousArray.Index;
+    public typealias SubSequence = Swift.ContiguousArray.SubSequence;
     
     internal(set) public var elements: ContiguousArray<Element>;
 
@@ -65,7 +65,7 @@ public class AnyContiguousArray<Element> : SequenceType, CollectionType, Mutable
     }
 
     // MARK: Sliceable
-    public final subscript(index: Range<Int>) -> SubSlice {
+    public final subscript(index: Range<Int>) -> SubSequence {
         get {
             return elements[index];
         }
@@ -84,13 +84,13 @@ public class AnyContiguousArray<Element> : SequenceType, CollectionType, Mutable
         elements.append(x);
     }
 
-    public func extend<S : SequenceType where S.Generator.Element == Generator.Element>(newElements: S) {
-        elements.extend(newElements);
+    public func appendContentsOf<S : SequenceType where S.Generator.Element == Generator.Element>(newElements: S) {
+        elements.appendContentsOf(newElements);
     }
 
     // MARK: RangeReplaceableCollectionType
-    public func splice<S : CollectionType where S.Generator.Element == Generator.Element>(newElements: S, atIndex i: Int) {
-        elements.splice(newElements, atIndex: i);
+    public func insertContentsOf<S : CollectionType where S.Generator.Element == Generator.Element>(newElements: S, at i: Int) {
+        elements.insertContentsOf(newElements, at: i);
     }
 
     public func insert(newElement: Element, atIndex i: Int) {
