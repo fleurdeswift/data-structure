@@ -9,7 +9,7 @@ import Foundation
 
 public typealias TaskBlock = (Task) throws -> Void;
 
-private let queue = dispatch_queue_create("ExtraDataStructures.Task", DISPATCH_QUEUE_SERIAL);
+private let taskQueue = dispatch_queue_create("ExtraDataStructures.Task", DISPATCH_QUEUE_SERIAL);
 
 public let TaskDescriptionNotification = "ExtraDataStructures.TaskDescriptionNotification";
 public let TaskProgressNotification    = "ExtraDataStructures.TaskProgressNotification";
@@ -21,51 +21,62 @@ public class Task : NSObject {
         case Initializing, Queued, Running, Completed
     }
 
-    public let identifier: String;
-    public let group:      dispatch_group_t = dispatch_group_create();
+    public let identifier:   String;
+    public let dependancies: Set<Task>;
+    public let group:        dispatch_group_t = dispatch_group_create();
+    public let queue:        dispatch_queue_t;
 
-    public var inputs:      [String: AnyObject] = [String: AnyObject]();
-    public var inputsError: [String: ErrorType] = [String: ErrorType]();
-    public var outputs:     [String: AnyObject] = [String: AnyObject]();
+    public var inputs      = [String: AnyObject]();
+    public var inputsError = ErrorDictionary();
+    public var outputs     = [String: AnyObject]();
     
-    private var _description:  String;
-    private var _progress:     Double              = 0;
-    private var _dependants:   [Task]              = [];
-    private var _dependancies: Int                 = 0;
-    private var _state:        State               = .Initializing;
-    private let _queue:        dispatch_queue_t;
-    private let _barrier:      Bool;
-    private let _block:        TaskBlock;
-    private var _error:        ErrorType?;
+    private var _description:   String;
+    private var _progress:      Double               = 0;
+    private var _dependants:    [Task]               = [];
+    private var _pending:       Int                  = 0;
+    private var _state:         State                = .Initializing;
+    private let _barrier:       Bool;
+    private let _block:         TaskBlock;
+    private var _error:         ErrorType?;
 
     public init(createWithIdentifier identifier: String, description: String, dependsOn: [Task]?, queue: dispatch_queue_t, barrier: Bool, block: TaskBlock) {
         self.identifier   = identifier;
+        self.queue        = queue;
         self._description = description;
-        self._queue       = queue;
         self._barrier     = barrier;
         self._block       = block;
+        
+        if let depends = dependsOn {
+            self.dependancies = Set<Task>(depends);
+        }
+        else {
+            self.dependancies = Set<Task>();
+        }
+        
         super.init();
         
-        dispatch_async(queue) {
-            if let depends = dependsOn {
-                for dependancy in depends {
-                    if dependancy._state != .Completed {
-                        dependancy._dependants.append(self);
-                        self._dependancies++;
-                    }
-                    else {
-                        self._mergeInputs(dependancy);
-                    }
+        dispatch_async(taskQueue) {
+            for dependancy in self.dependancies {
+                if dependancy._state != .Completed {
+                    dependancy._dependants.append(self);
+                    self._pending++;
+                }
+                else {
+                    self._mergeInputs(dependancy);
                 }
             }
             
-            if self._dependancies == 0 {
+            if self._pending == 0 {
                 self._run();
             }
             else {
                 self._setState(.Initializing);
             }
         }
+    }
+    
+    public class func createWithIdentifier(identifier: String, description: String, dependsOn: [Task]?, queue: dispatch_queue_t, barrier: Bool, block: TaskBlock) -> Task {
+        return Task(createWithIdentifier: identifier, description: description, dependsOn: dependsOn, queue: queue, barrier: barrier, block: block)
     }
     
     private func _run() {
@@ -85,18 +96,18 @@ public class Task : NSObject {
         }
         
         if _barrier {
-            dispatch_barrier_async(_queue, block);
+            dispatch_barrier_async(queue, block);
         }
         else {
-            dispatch_async(_queue, block);
+            dispatch_async(queue, block);
         }
         
         _setState(.Queued);
-        dispatch_group_notify(group, queue, self._completed);
+        dispatch_group_notify(group, taskQueue, self._completed);
     }
     
     private func setRunning() {
-        dispatch_async(queue) {
+        dispatch_async(taskQueue) {
             self._setState(.Running);
         }
     }
@@ -125,29 +136,29 @@ public class Task : NSObject {
         }
         
         if let e = dependancy._error {
-            inputsError[dependancy.identifier] = e;
+            inputsError[dependancy.identifier] = e as NSError;
         }
     }
     
     private func _dependancyHasCompleted(dependancy: Task) {
-        assert(_dependancies > 0);
+        assert(_pending > 0);
         _mergeInputs(dependancy);
-        _dependancies--;
+        _pending--;
         
-        if _dependancies == 0 {
+        if _pending == 0 {
             _run();
         }
     }
     
     public var error: ErrorType? {
         get {
-            return dispatch_sync(queue) {
+            return dispatch_sync(taskQueue) {
                 return self._error;
             }
         }
         
         set {
-            dispatch_sync(queue) {
+            dispatch_sync(taskQueue) {
                 self._error = newValue;
             }
         }
@@ -155,13 +166,13 @@ public class Task : NSObject {
 
     public override var description: String {
         get {
-            return dispatch_sync(queue) {
+            return dispatch_sync(taskQueue) {
                 return self._description;
             }
         }
         
         set {
-            dispatch_sync(queue) {
+            dispatch_sync(taskQueue) {
                 self._description = newValue;
                 
                 dispatch_async_main {
@@ -171,21 +182,57 @@ public class Task : NSObject {
         }
     }
 
+    public var globalProgress: Double {
+        get {
+            let deps = self.allDependancies;
+        
+            return dispatch_sync(taskQueue) {
+                var p: Double = self._progress;
+                
+                for dep in deps {
+                    p += dep._progress;
+                }
+            
+                return p / Double(1 + deps.count);
+            }
+        }
+    }
+    
     public var progress: Double {
         get {
-            return dispatch_sync(queue) {
+            return dispatch_sync(taskQueue) {
                 return self._progress;
             }
         }
         
         set {
-            dispatch_sync(queue) {
+            dispatch_sync(taskQueue) {
                 self._progress = newValue;
                 
                 dispatch_async_main {
                     NSNotificationCenter.defaultCenter().postNotificationName(TaskProgressNotification, object: self, userInfo: nil);
                 }
             }
+        }
+    }
+    
+    private func visitAllDependancies(inout deps: Set<Task>) {
+        for dependancy in dependancies {
+            if deps.contains(dependancy) {
+                continue;
+            }
+            
+            deps.insert(dependancy);
+            dependancy.visitAllDependancies(&deps);
+        }
+    }
+    
+    public var allDependancies: Set<Task> {
+        get {
+            var deps = Set<Task>();
+        
+            visitAllDependancies(&deps);
+            return deps;
         }
     }
 }
