@@ -27,7 +27,7 @@ public class Task : NSObject {
     public let queue:        dispatch_queue_t;
 
     public var inputs      = [String: AnyObject]();
-    public var inputsError = ErrorDictionary();
+    public var inputsError : ErrorDictionary?;
     public var outputs     = [String: AnyObject]();
     
     private var _description:   String;
@@ -73,6 +73,30 @@ public class Task : NSObject {
                 self._setState(.Initializing);
             }
         }
+    }
+    
+    public func then(identifier identifier: String, description: String, queue: dispatch_queue_t, barrier: Bool, block: TaskBlock) -> Task {
+        return Task(createWithIdentifier: identifier, description: description, dependsOn: [self], queue: queue, barrier: barrier, block: block);
+    }
+
+    public func then(identifier identifier: String, description: String, queue: dispatch_queue_t, block: TaskBlock) -> Task {
+        return Task(createWithIdentifier: identifier, description: description, dependsOn: [self], queue: queue, barrier: false, block: block);
+    }
+
+    public func thenOnMainThread(identifier identifier: String, description: String, block: TaskBlock) -> Task {
+        return Task(createWithIdentifier: identifier, description: description, dependsOn: [self], queue: dispatch_get_main_queue(), barrier: false, block: block);
+    }
+
+    public func thenOnMainThread(block: TaskBlock) -> Task {
+        return Task(createWithIdentifier: self.identifier + "-conclude", description: self.description, dependsOn: [self], queue: dispatch_get_main_queue(), barrier: false, block: block);
+    }
+
+    public func then(queue: dispatch_queue_t, barrier: Bool, block: TaskBlock) -> Task {
+        return Task(createWithIdentifier: self.identifier + "-conclude", description: self.description, dependsOn: [self], queue: queue, barrier: barrier, block: block);
+    }
+
+    public func then(queue: dispatch_queue_t, block: TaskBlock) -> Task {
+        return Task(createWithIdentifier: self.identifier + "-conclude", description: self.description, dependsOn: [self], queue: queue, barrier: false, block: block);
     }
     
     public class func createWithIdentifier(identifier: String, description: String, dependsOn: [Task]?, queue: dispatch_queue_t, barrier: Bool, block: TaskBlock) -> Task {
@@ -136,7 +160,11 @@ public class Task : NSObject {
         }
         
         if let e = dependancy._error {
-            inputsError[dependancy.identifier] = e as NSError;
+            if inputsError == nil {
+                inputsError = ErrorDictionary();
+            }
+            
+            inputsError![dependancy.identifier] = e as NSError;
         }
     }
     

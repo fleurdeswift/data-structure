@@ -13,73 +13,186 @@ public extension Task {
             case Revert, Stop, Ignore
         }
     
-        private func handle(error error: ErrorType, behavior: ErrorBehavior) -> Bool {
-            switch (behavior) {
-            case .Revert, .Stop:
-                return true;
-            default:
-                return false;
-            }
-        }
-    
         public func move(urls urls: [NSURL: NSURL], errorBehavior: ErrorBehavior) {
-            let manager     = NSFileManager.defaultManager();
-            var manualMoves = [NSURL:  NSURL]();
-            var linkMoves   = [String: String]();
-            var attributes  = [NSURL:  [String: AnyObject]]();
+            var moves   = [NSURL: NSURL]();
+            var renames = [NSURL: NSURL]();
+            let errors  = ErrorDictionary();
             
             typealias statStruct = stat;
             
-            var destinationStats = [NSURL: statStruct]();
+            var destinationStats = [NSURL: DarwinStatStruct]();
+            var bytes: Int64 = 0;
 
             for (source, destination) in urls {
-                if source.fileURL && destination.fileURL {
-                    if let sourcePath = source.path, destinationPath = destination.path {
-                        var destinationStat: statStruct;
-                        let destinationParent = destination.URLByDeletingLastPathComponent!;
+                if !source.fileURL {
+                    errors[source] = NSError(domain: NSPOSIXErrorDomain, code: Int(EBADF), userInfo: [NSURLErrorKey: source]);
+                    continue;
+                }
+                
+                if !destination.fileURL {
+                    errors[source] = NSError(domain: NSPOSIXErrorDomain, code: Int(EBADF), userInfo: [NSURLErrorKey: source]);
+                    continue;
+                }
+            
+                var destinationStat: DarwinStatStruct;
+                let destinationParent = destination.URLByDeletingLastPathComponent!;
+            
+                if let cached = destinationStats[destinationParent] {
+                    destinationStat = cached;
+                }
+                else {
+                    destinationStat = DarwinStatStruct();
                     
-                        if let cached = destinationStats[destinationParent] {
-                            destinationStat = cached;
-                        }
-                        else {
-                            destinationStat = statStruct();
-                            
-                            if Darwin.stat(destinationParent.path!, &destinationStat) != 0 {
-                                if handle(error: NSError(domain: NSPOSIXErrorDomain, code: Int(errno), userInfo: [
-                                    NSURLErrorKey: destination
-                                ]), behavior: errorBehavior) {
-                                    break;
-                                }
-                                else {
-                                    continue;
-                                }
-                            }
-                            
-                            destinationStats[destinationParent] = destinationStat;
-                        }
-                    
-                        do {
-                            var sourceStat = stat();
-                        
-                            Darwin.stat(sourcePath, &sourceStat);
-                            let attr = try manager.attributesOfItemAtPath(sourcePath);
-
-                            if Darwin.link(sourcePath, destinationPath) == 0 {
-                                linkMoves[sourcePath] = destinationPath;
-                                continue;
-                            }
-                            
-                            attributes[source] = attr;
-                        }
-                        catch {
-                            if handle(error: error, behavior: errorBehavior) {
-                                break;
-                            }
-                        }
+                    do {
+                        try DarwinStat(destinationParent, &destinationStat);
+                        try DarwinAccess(destinationParent, W_OK);
+                    }
+                    catch {
+                        errors[destinationParent] = error as NSError;
                     }
                 }
+            
+                do {
+                    var sourceStat = DarwinStatStruct();
+                    
+                    try DarwinStat(source, &sourceStat);
+                    try DarwinAccess(source, R_OK);
+                    try DarwinAccess(source.URLByDeletingLastPathComponent!, W_OK);
+                    
+                    if sourceStat.st_dev != destinationStat.st_dev {
+                        moves[source] = destination;
+                        bytes += sourceStat.st_size;
+                    }
+                    else {
+                        renames[source] = destination;
+                        bytes += 1;
+                    }
+                }
+                catch {
+                    errors[source] = error as NSError;
+                }
+            }
+            
+            if errors.count != 0 {
+                if errorBehavior != .Ignore {
+                    self.error = errors;
+                    return;
+                }
+            }
+            
+            bytes = min(1, bytes);
+            
+            var results       = [NSURL]();
+            var moved         = [NSURL: NSURL]();
+            var renamed       = [NSURL: NSURL]();
+            var readed: Int64 = 0;
 
-                manualMoves[source] = destination;
+            for (source, destination) in renames {
+                do {
+                    try DarwinRename(old: source, new: destination);
+                    renamed[source] = destination;
+                    readed += 1;
+                    self.progress = Double(readed) / Double(bytes);
+                    results.append(destination);
+                }
+                catch {
+                    errors[destination] = error as NSError;
+                    
+                    if errorBehavior != .Ignore {
+                        break;
+                    }
+                }
+            }
+            
+            if errors.count != 0 && errorBehavior == .Revert {
+                MoveFiles.revertRenames(renamed);
+                self.error = errors;
+                return;
+            }
+            
+            if moves.count > 0 {
+                let blockSize  = 65536 * 4;
+                let block      = Darwin.malloc(blockSize);
+                defer { Darwin.free(block); }
+                
+                for (source, destination) in moves {
+                    do {
+                        try moveFile(source, destination, block, blockSize, &readed, bytes);
+                        moved[source] = destination;
+                        results.append(destination);
+                    }
+                    catch {
+                        Darwin.unlink(destination.fileSystemRepresentation);
+                        errors[destination] = error as NSError;
+                        
+                        if errorBehavior != .Ignore {
+                            break;
+                        }
+                    }
+                    
+                    self.progress = Double(readed) / Double(bytes);
+                }
+            }
+            
+            if errors.count != 0 {
+                self.error = errors;
+                
+                if errorBehavior == .Revert {
+                    MoveFiles.revertRenames(renamed);
+                    MoveFiles.revertMoves(moved);
+                    return;
+                }
+            }
+            
+            MoveFiles.deleteMoves(moved);
+            self.outputs = ["destinationURLs": results];
+        }
+    }
+
+    private func moveFile(source: NSURL, _ destination: NSURL, _ block: UnsafeMutablePointer<Void>, _ blockSize: Int, inout _ readed: Int64, _ bytes: Int64) throws {
+        var blockIndex = 0;
+        
+        let rfd = try DarwinOpen(source, O_RDONLY);
+        defer { Darwin.close(rfd); }
+        let wfd = try DarwinOpen(destination, O_WRONLY | O_CREAT | O_EXCL);
+        defer { Darwin.close(wfd); }
+        
+        while true {
+            let blockReaded = try DarwinRead(rfd, block, blockSize);
+
+            if blockReaded == 0 {
+                break;
+            }
+
+            readed += Int64(blockReaded);
+
+            try DarwinWrite(wfd, block, blockReaded);
+
+            if blockIndex++ > 16 {
+                blockIndex = 0;
+                self.progress = Double(readed) / Double(bytes);
+            }
+        }
+    }
+    
+    private static func revertMoves(moves: [NSURL: NSURL]) {
+        for (_, destination) in moves {
+            Darwin.unlink(destination.fileSystemRepresentation);
+        }
+    }
+    
+    private static func deleteMoves(moves: [NSURL: NSURL]) {
+        for (source, _) in moves {
+            Darwin.unlink(source.fileSystemRepresentation);
+        }
+    }
+    
+    private static func revertRenames(renames: [NSURL: NSURL]) {
+        for (source, destination) in renames {
+            do {
+                try DarwinRename(old: destination, new: source);
+            }
+            catch {
             }
         }
     }

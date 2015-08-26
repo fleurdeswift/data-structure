@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		795B93781B8D1BB600F3D5E8 /* TaskMoveFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795B93771B8D1BB600F3D5E8 /* TaskMoveFileTests.swift */; settings = {ASSET_TAGS = (); }; };
+		795B937A1B8D229A00F3D5E8 /* POSIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795B93791B8D229A00F3D5E8 /* POSIX.swift */; settings = {ASSET_TAGS = (); }; };
 		7995A6D21B8C254300BCE8EE /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7995A6D11B8C254300BCE8EE /* Task.swift */; settings = {ASSET_TAGS = (); }; };
 		79D6897E1B8C7A9C005B9BF5 /* ErrorDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D6897D1B8C7A9C005B9BF5 /* ErrorDictionary.swift */; settings = {ASSET_TAGS = (); }; };
 		79D689801B8C816D005B9BF5 /* TaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D6897F1B8C816D005B9BF5 /* TaskTests.swift */; settings = {ASSET_TAGS = (); }; };
 		79D689821B8C994A005B9BF5 /* NSError+ErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D689811B8C994A005B9BF5 /* NSError+ErrorType.swift */; settings = {ASSET_TAGS = (); }; };
-		79D689841B8CA8D8005B9BF5 /* Task+MoveFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D689831B8CA8D8005B9BF5 /* Task+MoveFile.swift */; settings = {ASSET_TAGS = (); }; };
+		79D689841B8CA8D8005B9BF5 /* Task+MoveFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D689831B8CA8D8005B9BF5 /* Task+MoveFiles.swift */; settings = {ASSET_TAGS = (); }; };
 		7B14B44F1B6D12C0007B8840 /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B14B44E1B6D12C0007B8840 /* Dispatch.swift */; };
 		7B14B4511B6D1761007B8840 /* ReferenceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B14B4501B6D1761007B8840 /* ReferenceCache.swift */; };
 		7B18D1D51B81A454000048C2 /* TimeRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B18D1D41B81A454000048C2 /* TimeRange.swift */; };
@@ -49,11 +51,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		795B93771B8D1BB600F3D5E8 /* TaskMoveFileTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskMoveFileTests.swift; sourceTree = "<group>"; };
+		795B93791B8D229A00F3D5E8 /* POSIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POSIX.swift; sourceTree = "<group>"; };
 		7995A6D11B8C254300BCE8EE /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		79D6897D1B8C7A9C005B9BF5 /* ErrorDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorDictionary.swift; sourceTree = "<group>"; };
 		79D6897F1B8C816D005B9BF5 /* TaskTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTests.swift; sourceTree = "<group>"; };
 		79D689811B8C994A005B9BF5 /* NSError+ErrorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+ErrorType.swift"; sourceTree = "<group>"; };
-		79D689831B8CA8D8005B9BF5 /* Task+MoveFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+MoveFile.swift"; sourceTree = "<group>"; };
+		79D689831B8CA8D8005B9BF5 /* Task+MoveFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+MoveFiles.swift"; sourceTree = "<group>"; };
 		7B14B44E1B6D12C0007B8840 /* Dispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
 		7B14B4501B6D1761007B8840 /* ReferenceCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferenceCache.swift; sourceTree = "<group>"; };
 		7B18D1D41B81A454000048C2 /* TimeRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeRange.swift; sourceTree = "<group>"; };
@@ -141,13 +145,14 @@
 				79D689811B8C994A005B9BF5 /* NSError+ErrorType.swift */,
 				7BA4456D1B817F14002FD761 /* NSTimeInterval.swift */,
 				7B6F4CCD1B6F38FA00286C9A /* Number+Hex.swift */,
+				795B93791B8D229A00F3D5E8 /* POSIX.swift */,
 				7B6E036F1B62110B00412FA7 /* Reference.swift */,
 				7B14B4501B6D1761007B8840 /* ReferenceCache.swift */,
 				7BB14C311B60967100FDD462 /* SegmentedArray.swift */,
 				7BB14C2F1B60958200FDD462 /* SegmentedArrayEntry.swift */,
 				7B73EB9A1B8ABD42008C1C8E /* String+CharacterAccess.swift */,
 				7995A6D11B8C254300BCE8EE /* Task.swift */,
-				79D689831B8CA8D8005B9BF5 /* Task+MoveFile.swift */,
+				79D689831B8CA8D8005B9BF5 /* Task+MoveFiles.swift */,
 				7B18D1D41B81A454000048C2 /* TimeRange.swift */,
 			);
 			path = ExtraDataStructures;
@@ -160,6 +165,7 @@
 				7BB14C201B6080A600FDD462 /* Info.plist */,
 				7BB14C1E1B6080A600FDD462 /* SegmentedArrayTests.swift */,
 				79D6897F1B8C816D005B9BF5 /* TaskTests.swift */,
+				795B93771B8D1BB600F3D5E8 /* TaskMoveFileTests.swift */,
 			);
 			path = ExtraDataStructuresTests;
 			sourceTree = "<group>";
@@ -295,7 +301,8 @@
 				7BA4456C1B817EDA002FD761 /* Array+Move.swift in Sources */,
 				7995A6D21B8C254300BCE8EE /* Task.swift in Sources */,
 				7B14B44F1B6D12C0007B8840 /* Dispatch.swift in Sources */,
-				79D689841B8CA8D8005B9BF5 /* Task+MoveFile.swift in Sources */,
+				79D689841B8CA8D8005B9BF5 /* Task+MoveFiles.swift in Sources */,
+				795B937A1B8D229A00F3D5E8 /* POSIX.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +313,7 @@
 				7BB14C1F1B6080A600FDD462 /* SegmentedArrayTests.swift in Sources */,
 				7BB14C361B60A3E600FDD462 /* AggregateArrayTests.swift in Sources */,
 				79D689801B8C816D005B9BF5 /* TaskTests.swift in Sources */,
+				795B93781B8D1BB600F3D5E8 /* TaskMoveFileTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
